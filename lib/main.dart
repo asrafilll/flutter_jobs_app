@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jobs_app/bmi_apps/main.dart';
 import 'package:jobs_app/gender_apps/gender_provider.dart';
-import 'package:jobs_app/gender_apps/main.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const GenderApp(),
+        home: const BMIApp(),
       ),
     );
   }
