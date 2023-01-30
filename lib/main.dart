@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jobs_app/bmi_apps/height_provider.dart';
 import 'package:jobs_app/bmi_apps/main.dart';
-import 'package:jobs_app/gender_apps/gender_provider.dart';
+import 'package:jobs_app/bmi_apps/weight_provider.dart';
+// import 'package:jobs_app/gender_apps/gender_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -12,8 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<GenderProvider>(
-      create: (context) => GenderProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<WeightProvider>(
+          create: (context) => WeightProvider(),
+        ),
+        ChangeNotifierProvider<HeightProvider>(
+          create: (context) => HeightProvider(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
