@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jobs_app/main_apps/app_styles.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+class GetStartedPage extends StatelessWidget {
+  const GetStartedPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,8 @@ class SignInPage extends StatelessWidget {
                             foregroundColor: AppStyles.kPrimaryColor,
                             shape: const StadiumBorder(),
                           ),
-                          onPressed: () {},
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/register'),
                           child: const Text(
                             'Get Started',
                           ),
@@ -76,7 +77,9 @@ class SignInPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/sign-in');
+                          },
                           child: const Text(
                             'Sign In',
                           ),
