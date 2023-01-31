@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jobs_app/main_apps/app_styles.dart';
+import 'package:jobs_app/main_apps/controller/upload_photo_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'components/components.dart';
 
@@ -8,6 +10,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final uploadPhoto = Provider.of<UploadPhotoProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         controller: ScrollController(),
@@ -35,11 +38,20 @@ class RegisterPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              Center(
-                child: Image.asset(
-                  'assets/user_pic.png',
-                  width: 125,
-                ),
+              InkWell(
+                onTap: () {
+                  uploadPhoto.upload = true;
+                },
+                child: Center(
+                    child: uploadPhoto.isUpload
+                        ? Image.asset(
+                            'assets/user_pic.png',
+                            width: 125,
+                          )
+                        : Image.asset(
+                            'assets/upload_pic.png',
+                            width: 125,
+                          )),
               ),
               const SizedBox(height: 40),
               const CustomTextFormField(
