@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jobs_app/main_apps/controller/upload_photo_provider.dart';
-import 'package:jobs_app/main_apps/presentation/detail_category.dart';
 // import 'package:jobs_app/bmi_apps/height_provider.dart';
 // import 'package:jobs_app/bmi_apps/main.dart';
 import 'package:jobs_app/main_apps/presentation/get_started_page.dart';

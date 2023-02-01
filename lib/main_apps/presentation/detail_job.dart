@@ -221,7 +221,6 @@ class _DetailJobPageState extends State<DetailJobPage> {
                                 _isClicked ? 'Cancel Apply' : 'Apply for Job',
                             onPressed: () {
                               setState(() {
-                                print(_isClicked);
                                 _isClicked = !_isClicked;
                               });
                             },
