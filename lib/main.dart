@@ -4,6 +4,7 @@ import 'package:jobs_app/main_apps/controller/upload_photo_provider.dart';
 // import 'package:jobs_app/bmi_apps/height_provider.dart';
 // import 'package:jobs_app/bmi_apps/main.dart';
 import 'package:jobs_app/main_apps/presentation/get_started_page.dart';
+import 'package:jobs_app/main_apps/presentation/home_page.dart';
 import 'package:jobs_app/main_apps/presentation/register_page.dart';
 import 'package:jobs_app/main_apps/presentation/sign_in.dart';
 import 'package:jobs_app/main_apps/presentation/splash_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
           '/get-started': (context) => const GetStartedPage(),
           '/sign-in': (context) => const SignInPage(),
           '/register': (context) => const RegisterPage(),
+          '/home': (context) => const HomePage(),
         },
       ),
     );

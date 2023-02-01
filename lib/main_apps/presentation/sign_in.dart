@@ -51,7 +51,7 @@ class SignInPage extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               PrimaryButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, '/home'),
                 title: 'Sign In',
               ),
               const SizedBox(height: 20),
