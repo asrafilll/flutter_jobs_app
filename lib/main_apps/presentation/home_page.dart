@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jobs_app/main_apps/app_styles.dart';
 import 'package:jobs_app/main_apps/presentation/components/category_card.dart';
+import 'package:jobs_app/main_apps/presentation/components/job_tile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   static List<Map<String, dynamic>> categoryData = [
@@ -27,6 +28,37 @@ class HomePage extends StatelessWidget {
       'title': 'Video\nGrapher',
     },
   ];
+
+  static List<Map<String, dynamic>> jobsData = [
+    {
+      'img': 'assets/google_icon.png',
+      'title': 'Front-End Developer',
+      'company': 'Google',
+    },
+    {
+      'img': 'assets/ig_icon.png',
+      'title': 'UI Designer',
+      'company': 'Instagram',
+    },
+    {
+      'img': 'assets/fb_icon.png',
+      'title': 'Data Scientist',
+      'company': 'Facebook',
+    },
+  ];
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedMenu = 0;
+
+  void _onTap(int index) {
+    setState(() {
+      _selectedMenu = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +101,7 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               const Text(
-                'Howdy',
+                'Hot Categories',
                 style: TextStyle(
                   color: AppStyles.kBlackColor,
                   fontSize: 16,
@@ -82,17 +114,74 @@ class HomePage extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => CategoryCard(
-                    img: categoryData[index]['img'],
-                    title: categoryData[index]['title'],
+                    img: HomePage.categoryData[index]['img'],
+                    title: HomePage.categoryData[index]['title'],
                   ),
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 16),
-                  itemCount: categoryData.length,
+                  itemCount: HomePage.categoryData.length,
                 ),
-              )
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Just Posted',
+                style: TextStyle(
+                  color: AppStyles.kBlackColor,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 16),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => JobsTile(
+                  img: HomePage.jobsData[index]['img'],
+                  title: HomePage.jobsData[index]['title'],
+                  company: HomePage.jobsData[index]['company'],
+                ),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16),
+                itemCount: HomePage.jobsData.length,
+              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedMenu,
+        onTap: _onTap,
+        selectedFontSize: 12,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor: AppStyles.kPrimaryColor,
+        unselectedItemColor: AppStyles.kGreyColor,
+        items: const [
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/icons/icon_apps_outline.png'),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/icons/icon_notification_outline.png'),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/icons/icon_love_outline.png'),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/icons/icon_user_outline.png'),
+            ),
+            label: '',
+          ),
+        ],
       ),
     );
   }
