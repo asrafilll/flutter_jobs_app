@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jobs_app/main_apps/app_styles.dart';
 import 'package:jobs_app/main_apps/presentation/components/category_card.dart';
 import 'package:jobs_app/main_apps/presentation/components/job_tile.dart';
+import 'package:jobs_app/main_apps/presentation/detail_category.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
     },
     {
       'img': 'assets/mobile_dev.png',
-      'title': 'Mopbile\nDeveloper',
+      'title': 'Mobile\nDeveloper',
     },
     {
       'img': 'assets/app_designer.png',
@@ -26,6 +27,29 @@ class HomePage extends StatefulWidget {
     {
       'img': 'assets/video_grapher.png',
       'title': 'Video\nGrapher',
+    },
+  ];
+
+  static List<Map<String, dynamic>> categorySection = [
+    {
+      'img': 'assets/bg_web.png',
+      'title': 'Website Developer',
+    },
+    {
+      'img': 'assets/bg_mobile.png',
+      'title': 'Mobile Developer',
+    },
+    {
+      'img': 'assets/bg_designer.png',
+      'title': 'App Designer',
+    },
+    {
+      'img': 'assets/bg_content.png',
+      'title': 'Content Writer',
+    },
+    {
+      'img': 'assets/bg_videographer.png',
+      'title': 'Video Grapher',
     },
   ];
 
@@ -113,9 +137,23 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.separated(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CategoryCard(
-                    img: HomePage.categoryData[index]['img'],
-                    title: HomePage.categoryData[index]['title'],
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (builder) => DetailCategoryPage(
+                            categoryImg: HomePage.categorySection[index]['img'],
+                            categoryTitle: HomePage.categorySection[index]
+                                ['title'],
+                          ),
+                        ),
+                      );
+                    },
+                    child: CategoryCard(
+                      img: HomePage.categoryData[index]['img'],
+                      title: HomePage.categoryData[index]['title'],
+                    ),
                   ),
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 16),
