@@ -8,11 +8,15 @@ class PrimaryButton extends StatelessWidget {
     this.height = 45,
     required this.title,
     required this.onPressed,
+    this.bgColor,
+    this.fgColor,
   });
 
   final double width;
   final double height;
   final String title;
+  final Color? bgColor;
+  final Color? fgColor;
   final Function()? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -22,8 +26,8 @@ class PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: AppStyles.kPrimaryColor,
-          foregroundColor: Colors.white,
+          backgroundColor: bgColor ?? AppStyles.kPrimaryColor,
+          foregroundColor: fgColor ?? Colors.white,
           shape: const StadiumBorder(),
         ),
         onPressed: onPressed,

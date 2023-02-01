@@ -3,6 +3,7 @@ import 'package:jobs_app/main_apps/app_styles.dart';
 import 'package:jobs_app/main_apps/presentation/components/category_card.dart';
 import 'package:jobs_app/main_apps/presentation/components/job_tile.dart';
 import 'package:jobs_app/main_apps/presentation/detail_category.dart';
+import 'package:jobs_app/main_apps/presentation/detail_job.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -172,10 +173,18 @@ class _HomePageState extends State<HomePage> {
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => JobsTile(
-                  img: HomePage.jobsData[index]['img'],
-                  title: HomePage.jobsData[index]['title'],
-                  company: HomePage.jobsData[index]['company'],
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (builder) => const DetailJobPage()));
+                  },
+                  child: JobsTile(
+                    img: HomePage.jobsData[index]['img'],
+                    title: HomePage.jobsData[index]['title'],
+                    company: HomePage.jobsData[index]['company'],
+                  ),
                 ),
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 16),
