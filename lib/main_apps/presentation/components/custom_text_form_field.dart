@@ -7,10 +7,12 @@ class CustomTextFormField extends StatefulWidget {
     super.key,
     required this.formTitle,
     this.onChanged,
+    this.controller,
   });
 
   final String formTitle;
   final Function(String)? onChanged;
+  final TextEditingController? controller;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -32,6 +34,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
         const SizedBox(height: 8),
         TextFormField(
+          controller: widget.controller,
           onChanged: (value) {
             _isValid = EmailValidator.validate(value);
           },

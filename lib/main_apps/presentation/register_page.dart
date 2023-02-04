@@ -1,15 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:jobs_app/main_apps/app_styles.dart';
-import 'package:jobs_app/main_apps/controller/upload_photo_provider.dart';
+import 'package:jobs_app/main_apps/models/user.dart';
+import 'package:jobs_app/main_apps/providers/auth_provider.dart';
+import 'package:jobs_app/main_apps/providers/upload_photo_provider.dart';
+import 'package:jobs_app/main_apps/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'components/components.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController goalController = TextEditingController();
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(message),
+      ),
+    );
+  }
+
+  bool _isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
     final uploadPhoto = Provider.of<UploadPhotoProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
@@ -54,26 +80,64 @@ class RegisterPage extends StatelessWidget {
                           )),
               ),
               const SizedBox(height: 40),
-              const CustomTextFormField(
+              CustomTextFormField(
+                controller: nameController,
                 formTitle: 'Full Name',
               ),
               const SizedBox(height: 20),
-              const CustomTextFormField(
+              CustomTextFormField(
                 formTitle: 'Email Address',
+                controller: emailController,
               ),
               const SizedBox(height: 20),
-              const CustomTextFormField(
+              CustomTextFormField(
                 formTitle: 'Password',
+                controller: passwordController,
               ),
               const SizedBox(height: 20),
-              const CustomTextFormField(
+              CustomTextFormField(
                 formTitle: 'Your Goal',
+                controller: goalController,
               ),
               const SizedBox(height: 40),
-              PrimaryButton(
-                onPressed: () {},
-                title: 'Sign Up',
-              ),
+              _isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : PrimaryButton(
+                      onPressed: () async {
+                        if (nameController.text.isEmpty ||
+                            goalController.text.isEmpty ||
+                            emailController.text.isEmpty ||
+                            passwordController.text.isEmpty) {
+                          _showError('Mohon Isi semua data');
+                        } else {
+                          UserModel user = await authProvider.register(
+                            emailController.text,
+                            passwordController.text,
+                            nameController.text,
+                            goalController.text,
+                          );
+                          setState(() {
+                            _isLoading = true;
+                          });
+
+                          // ignore: unnecessary_null_comparison
+                          if (user == null) {
+                            _showError('Gagal Register');
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          } else {
+                            userProvider.user = user;
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/home', (route) => false);
+                          }
+                        }
+                      },
+                      title: 'Sign Up',
+                    ),
               const SizedBox(height: 20),
               CustomTextButton(
                 onPressed: () => Navigator.pushNamed(context, '/sign-in'),

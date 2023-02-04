@@ -1,11 +1,11 @@
-class User {
+class UserModel {
   final String id;
   final String email;
   final String password;
   final String name;
   final String goal;
 
-  User({
+  UserModel({
     required this.id,
     required this.email,
     required this.password,
@@ -13,13 +13,13 @@ class User {
     required this.goal,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     final id = json['id'];
     final email = json['email'];
     final password = json['password'];
     final name = json['name'];
     final goal = json['goal'];
-    return User(
+    return UserModel(
       id: id,
       email: email,
       password: password,
