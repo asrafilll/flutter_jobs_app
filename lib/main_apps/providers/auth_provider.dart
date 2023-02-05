@@ -29,4 +29,26 @@ class AuthProvider with ChangeNotifier {
       throw FormatException(e.toString());
     }
   }
+
+  Future<UserModel> signIn(String email, String password) async {
+    try {
+      var body = {
+        'email': email,
+        'password': password,
+      };
+
+      var response = await http.post(
+        Uri.parse('https://future-jobs-api.vercel.app/login'),
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        return UserModel.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception;
+      }
+    } catch (e) {
+      throw FormatException(e.toString());
+    }
+  }
 }
