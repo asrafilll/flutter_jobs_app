@@ -91,12 +91,9 @@ class _SignInPageState extends State<SignInPage> {
                           UserModel user = await authProvider.signIn(
                               _emailController.text, _passwordController.text);
 
-                          // ignore: unnecessary_null_comparison
-                          if (user == null) {
-                            _showError('Mohon mencoba login kembali');
-                          } else {
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushNamed(context, '/home');
+                          if (user.email.isNotEmpty && context.mounted) {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/home', (route) => false);
                           }
                         }
                       },
